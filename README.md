@@ -1,7 +1,7 @@
 # Dummies-guide-for-Akroma-Masternode-setup
 Dummies guide for Akroma Masternode setup
 
-Simply download the file and have fun.
+Simply download the .docx file and have fun.
 
 I am open to your opinion if you feel that it should or could be made easier.
 
