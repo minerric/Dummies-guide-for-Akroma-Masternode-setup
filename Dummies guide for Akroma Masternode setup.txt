@@ -1,0 +1,92 @@
+Dummies guide for setting up AKROMA masternode
+
+This guide assumes you have your vps already ordered and running and putty connected to vps.
+If you haven't head over to https://www.digitalocean.com/products/linux-distribution/ubuntu/.
+
+Their lowest droplet option will work just fine.
+
+Now all things completed lets copy and paste some commands into putty.
+
+If you are using Ubuntu 14.04 LTS this will be required
+
+sudo apt-get install systemd
+
+Now lets start Masternode setup
+
+wget https://raw.githubusercontent.com/iandesj/scripts/master/masternode/setup.sh
+
+chmod +x setup.sh
+
+./setup.sh --systemd              # this creates systemd service and uses default port 8545
+
+sudo systemctl start masternode   # this starts our masternode service
+
+sudo systemctl enable masternode  # this will enable service to start at boot
+
+sudo systemctl stop masternode    # this stops our masternode service
+
+systemctl status masternode       # displays pageable log, pressing `Q` or `q`, or control + `C` will exit the status display
+
+Masternode Registration
+Registration of your node allows us to monitor uptime, as well as keep check of wallet balance to ensure you have the necessary collateral.
+1) Login to https://dashboard.akroma.io
+2) In side panel, visit “Masternodes” pane.
+3) You should now see the “Create” link under the “Masternodes” heading, click this.
+4) Once on the Create page, you’ll see several fields required for creation.
+
+Overview of these fields
+Enode Id: Unique public key for your node. We will discuss how to find this below.
+Node IP Address: IP address of your node, remember that static IP mentioned above? This is that.
+Node Port: Port used to perform periodic health checks on. Should be 8545 unless specified differently in initial node setup. Make sure this port is open to the outside.
+Wallet Address: Akroma wallet address associated with your masternode (used for payouts, verification, and checks).
+
+The Akroma team written a utility script to assist obtaining this info if you don’t have it on hand. 
+Follow the instructions below to use.
+
+wget https://raw.githubusercontent.com/iandesj/scripts/master/masternode/utils.sh
+
+chmod +x utils.sh
+
+./utils.sh --enodeId --nodePort --nodeIp
+
+This command will output all the information required to create a masternode on Akroma dashboard, and will look like below.
+
+Enode Id: 22b9949bb14a54afd4fc3ac737b427a620a97c76e3d656b55f797d48e20f0fffef8e7670bd8d6081fe1abf1b19f73e14976cf10030ab60050866a43cee27c946
+Node Port: 8545
+Node IP: 68.40.44.89
+~ $ ./utils.sh --nodePort # flags can be used individually
+Node Port: 8549
+~ $ ./utils.sh --help # this for help :)
+
+Now lets head ove to https://dashboard.akroma.io/dashboard/masternodes
+
+Click + create master node
+
+Fill in the required fields
+
+photo
+
+At this point, if all of the details are valid, you should have created a masternode, yet to be “verified” as represented in “pending” status.
+
+photo
+
+Masternode Verification
+Verification of your masternode consists of one user-interaction, 
+this is sending a transaction in any amount of AKA to and from the same wallet that’s being used
+for the masternode with the value of Transaction Data (represented as TransactionData)
+on the unverified masternode detail page. 
+Copy this value and paste it into the data input in your transaction (not currently available in the Android wallet).
+
+photo
+
+At this point, if your transaction has been sent, and your wallet meets the minimum collateral requirement for verification, the masternode should be verified.
+
+
+
+
+
+
+
+
+
+
